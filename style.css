@@ -1224,6 +1224,10 @@ footer {
     transform: translateY(0);
   }
 
+  .trust-bar {
+    display: none;
+  }
+  
   .trust-grid,
   .cars-grid,
   .steps-grid,
