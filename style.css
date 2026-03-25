@@ -743,6 +743,7 @@ header.hero {
 
 .about-grid,
 .contact-grid,
+.service-grid,
 .cta-grid {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -1112,6 +1113,7 @@ footer {
 
   .about-grid,
   .contact-grid,
+  .service-grid,
   .cta-grid {
     grid-template-columns: 1fr;
   }
