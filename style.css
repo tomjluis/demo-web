@@ -999,6 +999,14 @@ footer {
   font-size: 0.92rem;
 }
 
+/* SOCIAL LINKS */
+
+.social-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .social-link {
   display: inline-flex;
   align-items: center;
@@ -1030,8 +1038,15 @@ footer {
 }
 
 .social-link:hover .social-icon {
-  background: #1877f2; /* color Facebook */
   transform: translateY(-1px);
+}
+
+.social-link[href*="facebook"]:hover .social-icon {
+  background: #1877f2;
+}
+
+.social-link[href*="instagram"]:hover .social-icon {
+  background: radial-gradient(circle at 30% 30%, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
 }
 
 /* MOBILE FLOATING CTA */
