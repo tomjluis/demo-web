@@ -922,6 +922,64 @@
       border: 0;
     }
 
+    .mobile-nav-tools {
+      display: none;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .mobile-menu,
+    .mobile-lang {
+      position: relative;
+    }
+    
+    .mobile-tool-btn {
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+    
+    .mobile-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 180px;
+      background: rgba(19, 32, 42, 0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.22);
+      padding: 8px;
+      display: none;
+      z-index: 30;
+    }
+    
+    .mobile-dropdown a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.92);
+    }
+    
+    .mobile-dropdown a:hover {
+      background: rgba(255,255,255,0.08);
+    }
+    
+    .mobile-menu.open .mobile-dropdown,
+    .mobile-lang.open .mobile-dropdown {
+      display: block;
+    }
+    
     @media (max-width: 980px) {
       .trust-fleet-copy,
       .fleet-hero,
@@ -992,102 +1050,87 @@
       .section { padding: 68px 0; }
       .container { width: min(var(--container), calc(100% - 28px)); }
       .brand img { width: 118px; }
-
+    
       .nav {
         padding: 18px 0;
       }
-
+    
       .nav-inner {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
       }
-
+    
       .brand {
         justify-content: flex-start;
+        min-width: 0;
       }
-
+    
       .brand-text span {
         display: none;
       }
-
+    
+      .brand-text strong {
+        font-size: 1rem;
+      }
+    
       .nav-links {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        align-items: stretch;
+        display: none;
       }
-
-      .nav-links > a:not(.btn) {
-        min-height: 44px;
+    
+      .mobile-nav-tools {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.14);
-        border-radius: 14px;
-        text-align: center;
+        flex-shrink: 0;
       }
-
-      .nav-links > .btn {
-        grid-column: 1 / -1;
-        width: 100%;
-      }
-
-      .lang-switch {
-        grid-column: 1 / -1;
-        justify-content: center;
-        width: 100%;
-      }
-
+    
       .hero-grid {
         grid-template-columns: 1fr;
         gap: 20px;
         padding: 18px 0 48px;
       }
-
+    
       .hero-panel {
         max-width: 100%;
         order: 2;
       }
-
+    
       .hero-panel h1 {
         font-size: 2.5rem;
         max-width: 100%;
       }
-
+    
       .hero-panel > p:not(.hero-eyebrow) {
         max-width: 100%;
         font-size: 1rem;
       }
-
+    
       .hero-actions {
         flex-direction: column;
         align-items: stretch;
       }
-
+    
       .hero-actions .btn {
         width: 100%;
       }
-
+    
       .hero-visual {
         min-height: 170px;
         justify-content: center;
         order: 1;
       }
-
+    
       .hero-visual::after {
         width: 220px;
         height: 24px;
         left: 50%;
       }
-
+    
       .hero-car {
         width: min(100%, 300px);
         transform: translateY(0);
       }
-
+    
       .trust-grid,
       .cars-grid,
       .steps-grid,
@@ -1098,20 +1141,20 @@
       .fleet-specs {
         grid-template-columns: 1fr;
       }
-
+    
       .trust-item {
         border-right: 0;
         border-bottom: 1px solid var(--line);
       }
-
+    
       .trust-item:last-child {
         border-bottom: 0;
       }
-
+    
       .fleet-card-media {
         aspect-ratio: auto;
       }
-
+    
       .fleet-bottom,
       .fleet-topline,
       .section-head,
@@ -1119,28 +1162,89 @@
         flex-direction: column;
         align-items: start;
       }
-
+    
       .about-image,
       .contact-map,
       .contact-map .embed-map-container,
       .about-image img {
         min-height: 320px;
       }
-
+    
       .contact-panel,
       .cta-box {
         padding: 26px;
       }
-
+    
       .mobile-book {
-        display: block;
+        display: none;
       }
-
+    
       body {
         padding-bottom: 92px;
       }
     }
   </style>
+  <script>
+    (function () {
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const mobileLang = document.querySelector('.mobile-lang');
+      const menuBtn = mobileMenu?.querySelector('.mobile-tool-btn');
+      const langBtn = mobileLang?.querySelector('.mobile-tool-btn');
+      const mobileBook = document.querySelector('.mobile-book');
+      const heroBookBtn = document.querySelector('.hero-actions .btn-primary');
+  
+      function closeDropdown(dropdown, button) {
+        if (!dropdown || !button) return;
+        dropdown.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+      }
+  
+      function toggleDropdown(dropdown, button, otherDropdown, otherButton) {
+        if (!dropdown || !button) return;
+        const isOpen = dropdown.classList.contains('open');
+  
+        closeDropdown(otherDropdown, otherButton);
+  
+        dropdown.classList.toggle('open', !isOpen);
+        button.setAttribute('aria-expanded', String(!isOpen));
+      }
+  
+      menuBtn?.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleDropdown(mobileMenu, menuBtn, mobileLang, langBtn);
+      });
+  
+      langBtn?.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleDropdown(mobileLang, langBtn, mobileMenu, menuBtn);
+      });
+  
+      document.addEventListener('click', function () {
+        closeDropdown(mobileMenu, menuBtn);
+        closeDropdown(mobileLang, langBtn);
+      });
+  
+      function updateMobileBookVisibility() {
+        if (!mobileBook || !heroBookBtn) return;
+  
+        const isMobile = window.innerWidth <= 760;
+        if (!isMobile) {
+          mobileBook.style.display = 'none';
+          return;
+        }
+  
+        const rect = heroBookBtn.getBoundingClientRect();
+        const heroButtonVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+  
+        mobileBook.style.display = heroButtonVisible ? 'none' : 'block';
+      }
+  
+      window.addEventListener('scroll', updateMobileBookVisibility, { passive: true });
+      window.addEventListener('resize', updateMobileBookVisibility);
+      window.addEventListener('load', updateMobileBookVisibility);
+      updateMobileBookVisibility();
+    })();
+  </script>
 </head>
 <body>
   <header class="hero" id="top">
@@ -1163,6 +1267,32 @@
             <a href="#" class="active">EN</a>
             <a href="#">ES</a>
             <a href="#">DE</a>
+          </div>
+        </div>
+        
+        <div class="mobile-nav-tools">
+          <div class="mobile-lang">
+            <button class="mobile-tool-btn" type="button" aria-expanded="false" aria-controls="mobile-lang-menu">
+              EN
+              <span>▾</span>
+            </button>
+            <div class="mobile-dropdown" id="mobile-lang-menu">
+              <a href="#">ES</a>
+              <a href="#">DE</a>
+            </div>
+          </div>
+        
+          <div class="mobile-menu">
+            <button class="mobile-tool-btn" type="button" aria-expanded="false" aria-controls="mobile-menu-dropdown">
+              Menu
+              <span>▾</span>
+            </button>
+            <div class="mobile-dropdown" id="mobile-menu-dropdown">
+              <a href="#fleet-page">Fleet</a>
+              <a href="#about">About us</a>
+              <a href="#contact">Contact</a>
+              <a href="https://autosroquero.webcar.rent/">Book now</a>
+            </div>
           </div>
         </div>
       </div>
