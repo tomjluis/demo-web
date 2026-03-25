@@ -1120,6 +1120,8 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .service-image,
+  .service-image img,
   .about-image,
   .contact-map,
   .contact-map .embed-map-container,
