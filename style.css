@@ -452,7 +452,7 @@ header.hero {
   box-shadow: var(--shadow);
   border-radius: var(--radius-lg);
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   overflow: hidden;
 }
 
