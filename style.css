@@ -780,6 +780,7 @@ header.hero {
   z-index: 1;
 }
 
+.service-overlay,
 .about-overlay {
   position: absolute;
   left: 24px;
@@ -789,6 +790,7 @@ header.hero {
   max-width: 70%;
 }
 
+.service-overlay .kicker,
 .about-overlay .kicker {
   font-size: 0.9rem;
   opacity: 0.85;
@@ -797,6 +799,7 @@ header.hero {
   margin-bottom: 6px;
 }
 
+.service-overlay h3,
 .about-overlay h3 {
   margin: 0;
   font-size: 1.6rem;
