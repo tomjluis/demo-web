@@ -999,6 +999,41 @@ footer {
   font-size: 0.92rem;
 }
 
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.social-link:hover {
+  color: #ffffff;
+}
+
+.social-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease;
+}
+
+.social-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #ffffff;
+  opacity: 0.9;
+}
+
+.social-link:hover .social-icon {
+  background: #1877f2; /* color Facebook */
+  transform: translateY(-1px);
+}
+
 /* MOBILE FLOATING CTA */
 
 .mobile-book {
