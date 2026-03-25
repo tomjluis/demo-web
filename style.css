@@ -747,7 +747,7 @@ header.hero {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 34px;
-  align-items: center;
+  align-items: start;
 }
 
 .about-image,
