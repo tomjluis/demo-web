@@ -1131,7 +1131,7 @@ footer {
 /* MOBILE */
 
 @media (max-width: 760px) {
-  .section { padding: 68px 0; }
+  .section { padding: 40px 0; }
   .container { width: min(var(--container), calc(100% - 28px)); }
   .brand img { width: 118px; }
 
