@@ -689,6 +689,7 @@
       object-fit: cover;
       object-position: 50% 40%;
       transform: scale(1.12);
+      min-height: 520px
     }
 
     .contact-map iframe {
@@ -949,8 +950,9 @@
       .contact-grid,
       .cta-grid { grid-template-columns: 1fr; }
       .about-image,
-      .contact-map { min-height: 320px; }
-      .contact-map .embed-map-container {min-height: 320px;}
+      .contact-map,
+      .contact-map .embed-map-container,
+      .about-image img { min-height: 320px; }
       .trust-item:nth-child(2n) { border-right: 0; }
     }
 
